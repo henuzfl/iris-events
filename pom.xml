@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.iris</groupId>
+    <artifactId>iris-events</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>iris-events</name>
+    <description>iris events</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>iris-common</module>
+        <module>iris-publisher</module>
+        <module>iris-reader</module>
+        <module>iris-producer</module>
+        <module>iris-consumer</module>
+        <module>iris-common-jdbc</module>
+        <module>iris-coordination-leadership</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+</project>
