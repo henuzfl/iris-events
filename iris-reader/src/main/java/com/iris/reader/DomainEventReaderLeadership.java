@@ -22,14 +22,14 @@ public class DomainEventReaderLeadership {
     private final String zkConnectString;
     private final String leaderId;
     private volatile boolean leader;
-    private IDomainEventReader domainEventReader;
+    private IDomainEventReaderService domainEventReader;
 
     @Value("${spring.application.name}")
     private String applicationName;
 
 
     public DomainEventReaderLeadership(String zkConnectString,
-                                       IDomainEventReader domainEventReader) {
+                                       IDomainEventReaderService domainEventReader) {
         this.zkConnectString = zkConnectString;
         this.leaderId = UUID.randomUUID().toString();
         this.domainEventReader = domainEventReader;

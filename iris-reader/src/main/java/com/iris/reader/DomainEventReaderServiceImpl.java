@@ -2,8 +2,9 @@ package com.iris.reader;
 
 import com.iris.common.EventMessage;
 import com.iris.common.jdbc.CommonJdbcOperations;
-import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
+import com.iris.producer.IDomainEventProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,15 +15,21 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2020/9/4 15:37
  * @Version: 1.0.0
  */
-public class DomainEventReaderMysqlPolling implements IDomainEventReader {
+public class DomainEventReaderServiceImpl implements IDomainEventReaderService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ScheduledExecutorService scheduledExecutorService;
 
-    private CommonJdbcOperations commonJdbcOperations;
+    private final CommonJdbcOperations commonJdbcOperations;
 
-    public DomainEventReaderMysqlPolling(CommonJdbcOperations commonJdbcOperations) {
+    private final IDomainEventProducer domainEventProducer;
+
+    public DomainEventReaderServiceImpl(CommonJdbcOperations commonJdbcOperations, IDomainEventProducer domainEventProducer) {
         this.commonJdbcOperations = commonJdbcOperations;
-        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        this.scheduledExecutorService =
+                Executors.newSingleThreadScheduledExecutor();
+        this.domainEventProducer = domainEventProducer;
     }
 
     @Override
@@ -39,6 +46,6 @@ public class DomainEventReaderMysqlPolling implements IDomainEventReader {
     }
 
     private void eventMessageProcess(EventMessage eventMessage) {
-
+        this.domainEventProducer.processEvent(eventMessage);
     }
 }
