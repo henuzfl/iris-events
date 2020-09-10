@@ -7,6 +7,7 @@ import com.iris.producer.impl.DomainEventKafkaProducer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -19,12 +20,14 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @Import({CommonJdbcConfiguration.class})
 @ConditionalOnClass(IrisProducerConfiguration.class)
+@EnableConfigurationProperties(IrisKafkaProducerProperties.class)
 @EnableAutoConfiguration
 public class IrisProducerConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(IDomainEventProducer.class)
-    public IDomainEventProducer domainEventProducer(CommonJdbcOperations commonJdbcOperations) {
-        return new DomainEventKafkaProducer(commonJdbcOperations);
+    public IDomainEventProducer domainEventProducer(IrisKafkaProducerProperties kafkaProducerProperties, CommonJdbcOperations commonJdbcOperations) {
+        return new DomainEventKafkaProducer(kafkaProducerProperties,
+                commonJdbcOperations);
     }
 }
