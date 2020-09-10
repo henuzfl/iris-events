@@ -7,8 +7,20 @@
   <groupId>com.iris</groupId>
   <artifactId>iris-coordination-leadership</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-  <name>iris-coordination-leadership</name>
+    <name>iris-coordination-leadership</name>
 
   <dependencies>
     <dependency>

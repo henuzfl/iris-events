@@ -25,6 +25,7 @@
             <groupId>com.iris</groupId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.iris</groupId>
             <artifactId>iris-coordination-leadership</artifactId>
@@ -37,5 +38,12 @@
             <artifactId>iris-producer</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 </project>

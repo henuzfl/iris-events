@@ -10,6 +10,7 @@ import com.iris.reader.IDomainEventReaderService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @Import({CommonJdbcConfiguration.class, IrisProducerConfiguration.class})
 @ConditionalOnClass(IrisReaderConfiguration.class)
+@EnableConfigurationProperties(IrisReaderProperties.class)
 @EnableAutoConfiguration
 public class IrisReaderConfiguration {
 
@@ -34,8 +36,8 @@ public class IrisReaderConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(DomainEventReaderLeadership.class)
-    public DomainEventReaderLeadership domainEventReaderLeadership(IDomainEventReaderService domainEventReader) {
-        return new DomainEventReaderLeadership("192.168.1.72:2181",
+    public DomainEventReaderLeadership domainEventReaderLeadership(IrisReaderProperties irisReaderProperties, IDomainEventReaderService domainEventReader) {
+        return new DomainEventReaderLeadership(irisReaderProperties.getZookeeper().getConnectString(),
                 domainEventReader);
     }
 
